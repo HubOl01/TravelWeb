@@ -20,18 +20,14 @@ namespace TravelWebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TravelDetail>>> GetAllTravels()
         {
-            return await _context.TravelDetails
-                .Include(t => t.Places)
-                .ToListAsync();
+            return await _context.TravelDetails.Include(t => t.Places).ToListAsync();
         }
 
         // GET: api/travel/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TravelDetail>> GetTravel(int id)
         {
-            var travel = await _context.TravelDetails
-                .Include(t => t.Places)
-                .FirstOrDefaultAsync(t => t.Id == id);
+            var travel = await _context.TravelDetails.Include(t => t.Places).FirstOrDefaultAsync(t => t.Id == id);
 
             if (travel == null) return NotFound();
             return travel;
