@@ -1,0 +1,64 @@
+<div class="class bg-body-secondary text-center py-5 rounded-2">
+    <h1 class="display-6 fw-bold">
+        Traveler
+    </h1>
+</div>
+
+<div class="row mt-5">
+    <div class="col-6">
+        <app-travel-form />
+    </div>
+    <div class="col-6">
+        <mat-list class>
+            @for (item of service.list; track $index) {
+            <mat-card appearance="outlined" class="mb-3">
+                <mat-card-header>
+                    <mat-card-title
+                        class="mb-2 fw-medium fs-3">{{item.city}}</mat-card-title>
+                    <mat-card-subtitle class="mb-3 fw-normal">Стоимость:
+                        {{item.cost}}
+                        руб.</mat-card-subtitle>
+                </mat-card-header>
+                <img mat-card-image src={{item.image}} alt={{item.city}}>
+                <mat-card-content>
+                    <p class="mt-3" style="font-size: 16px;">
+                        {{item.description}}
+                    </p>
+                    <p class="text-body-secondary"
+                        style="font-size: 14px; text-align: end;">
+                        {{item.dateTimeStart | date: 'dd.MM.yyyy HH:mm'}} -
+                        {{item.dateTimeEnd | date: 'dd.MM.yyyy HH:mm'}}
+                    </p>
+                    <p class="fs-4 fw-medium">Достопримечательности</p>
+                    <ul>
+                        @for (place of item.places; track $index) {
+                        <li class="mb-2 flex items-start gap-2">
+                            <p class="fw-medium fs-5">{{ place.name }}</p>
+                            <img
+                                [src]="place.image"
+                                [alt]="place.name"
+                                width="300"
+                                height="300"
+                                style="object-fit: cover; border-radius: 4px" />
+                            <div class="mt-3" style="font-size: 16px;">
+                                {{ place.description }}
+                            </div>
+                        </li>
+
+                        }
+
+                    </ul>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button matButton>Редактировать</button>
+                    <button mat-button color="warn">Удалить</button>
+                </mat-card-actions>
+                <!-- <mat-card-actions>
+                    <button matButton>LIKE</button>
+                    <button matButton>SHARE</button>
+                </mat-card-actions> -->
+            </mat-card>
+            }
+        </mat-list>
+    </div>
+</div>

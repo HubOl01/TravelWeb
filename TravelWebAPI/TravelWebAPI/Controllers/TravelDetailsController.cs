@@ -69,7 +69,7 @@ namespace TravelWebAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(await _context.TravelDetails.Include(place => place.Places).ToListAsync());
         }
 
         // POST: api/TravelDetails
@@ -79,8 +79,8 @@ namespace TravelWebAPI.Controllers
         {
             _context.TravelDetails.Add(travelDetail);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTravelDetail", new { id = travelDetail.Id }, travelDetail);
+            //CreatedAtAction("GetTravelDetail", new { id = travelDetail.Id }, travelDetail)
+            return Ok(await _context.TravelDetails.Include(place => place.Places).ToListAsync());
         }
 
         // DELETE: api/TravelDetails/5
@@ -96,7 +96,7 @@ namespace TravelWebAPI.Controllers
             _context.TravelDetails.Remove(travelDetail);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(await _context.TravelDetails.Include(place => place.Places).ToListAsync());
         }
 
         private bool TravelDetailExists(int id)

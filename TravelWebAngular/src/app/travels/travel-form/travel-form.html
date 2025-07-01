@@ -1,0 +1,86 @@
+<form [formGroup]="travelForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Город</mat-label>
+        <input matInput formControlName="city" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Изображение (URL)</mat-label>
+        <input matInput formControlName="image" />
+        <img
+            [src]="travelForm.get('image')?.value"
+            alt="Превью"
+            width="full-width"
+            height="200"
+            *ngIf="travelForm.get('image')?.value"
+            style="object-fit: cover;" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Описание</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Дата начала</mat-label>
+        <input matInput [matDatepicker]="pickerStart"
+            formControlName="dateTimeStart" required />
+        <mat-datepicker-toggle matSuffix
+            [for]="pickerStart"></mat-datepicker-toggle>
+        <mat-datepicker #pickerStart></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Дата окончания</mat-label>
+        <input matInput [matDatepicker]="pickerEnd"
+            formControlName="dateTimeEnd" required />
+        <mat-datepicker-toggle matSuffix
+            [for]="pickerEnd"></mat-datepicker-toggle>
+        <mat-datepicker #pickerEnd></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Стоимость</mat-label>
+        <input matInput type="number" formControlName="cost" required min="0" />
+    </mat-form-field>
+
+    <h3>Достопримечательности</h3>
+
+    <div formArrayName="places">
+        <div *ngFor="let place of places.controls; let i = index"
+            [formGroupName]="i" class="place-group">
+
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Название</mat-label>
+                <input matInput formControlName="name" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Описание</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Изображение (URL)</mat-label>
+                <input matInput formControlName="image" />
+                <img
+                    [src]="place.get('image')?.value"
+                    alt="Превью"
+                    width="full-width"
+                    height="200"
+                    *ngIf="place.get('image')?.value"
+                    style="object-fit: cover;" />
+            </mat-form-field>
+
+            <button mat-button color="primary" color="warn"
+                (click)="removePlace(i)">Удалить достопримечательность</button>
+        </div>
+    </div>
+
+    <button mat-button color="primary" type="button"
+        (click)="addPlace()">Добавить достопримечательность</button>
+
+    <br /><br />
+    <button mat-raised-button color="primary" type="submit"
+        [disabled]="travelForm.invalid">Сохранить путешествие</button>
+</form>
