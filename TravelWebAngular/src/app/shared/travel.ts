@@ -10,9 +10,6 @@ export class TravelService {
   travelsUrl: string = environment.apiBaseUrl + '/TravelDetails';
   list: Travel[] = [];
 
-  formDataTravel: Travel = new Travel();
-  // formDataPlace: Place= new Place();
-
   constructor(private http: HttpClient) {}
   refreshList() {
     this.http.get(this.travelsUrl).subscribe({
@@ -31,8 +28,8 @@ export class TravelService {
   addTravel(travel: Travel) {
     return this.http.post(this.travelsUrl, travel);
   }
-  updateTravel(id: number, travel: Travel) {
-    return this.http.put(this.travelsUrl + '/' + id, travel);
+  updateTravel(travel: Travel) {
+    return this.http.put(this.travelsUrl + '/' + travel.id, travel);
   }
   deleteTravel(id: number) {
     return this.http.delete(this.travelsUrl + '/' + id);

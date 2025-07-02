@@ -8,14 +8,13 @@ import { Place } from './place.model';
 })
 export class PlaceService {
   placeUrl: string = environment.apiBaseUrl + '/PlaceModels';
-  placeForm: Place = new Place();
   constructor(private http: HttpClient) {}
 
-  addPlace() {
-    return this.http.post(this.placeUrl, this.placeForm);
+  addPlace(place: Place) {
+    return this.http.post(this.placeUrl, place);
   }
-  updatePlace(id: number, place: Place) {
-    return this.http.put(this.placeUrl + '/' + id, place);
+  updatePlace(place: Place) {
+    return this.http.put(this.placeUrl + '/' + place.id, place);
   }
   deletePlace(id: number) {
     return this.http.delete(this.placeUrl + '/' + id);

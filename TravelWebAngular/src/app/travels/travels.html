@@ -1,12 +1,12 @@
 <div class="class bg-body-secondary text-center py-5 rounded-2">
     <h1 class="display-6 fw-bold">
-        Traveler
+        Traveller
     </h1>
 </div>
 
 <div class="row mt-5">
     <div class="col-6">
-        <app-travel-form />
+        <app-travel-form [travelToEdit]="selectedTravel" />
     </div>
     <div class="col-6">
         <mat-list class>
@@ -29,7 +29,8 @@
                         {{item.dateTimeStart | date: 'dd.MM.yyyy HH:mm'}} -
                         {{item.dateTimeEnd | date: 'dd.MM.yyyy HH:mm'}}
                     </p>
-                    <p class="fs-4 fw-medium">Достопримечательности</p>
+                    <p class="fs-4 fw-medium"
+                        *ngIf="item.places.length > 0">Достопримечательности</p>
                     <ul>
                         @for (place of item.places; track $index) {
                         <li class="mb-2 flex items-start gap-2">
@@ -50,8 +51,10 @@
                     </ul>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button matButton>Редактировать</button>
-                    <button mat-button color="warn">Удалить</button>
+                    <button matButton
+                        (click)="onEditTravel(item)">Редактировать</button>
+                    <button mat-button color="warn"
+                        (click)="onDeleteTravel(item.id!)">Удалить</button>
                 </mat-card-actions>
                 <!-- <mat-card-actions>
                     <button matButton>LIKE</button>

@@ -44,7 +44,7 @@
         <input matInput type="number" formControlName="cost" required min="0" />
     </mat-form-field>
 
-    <h3>Достопримечательности</h3>
+    <p class="fs-4 fw-medium">Достопримечательности</p>
 
     <div formArrayName="places">
         <div *ngFor="let place of places.controls; let i = index"
@@ -81,6 +81,10 @@
         (click)="addPlace()">Добавить достопримечательность</button>
 
     <br /><br />
+    <button
+        *ngIf="travelToEdit?.id"
+        mat-button color="warn" type="button"
+        (click)="cancelEdit()">Отменить редактирование</button>
     <button mat-raised-button color="primary" type="submit"
         [disabled]="travelForm.invalid">Сохранить путешествие</button>
 </form>

@@ -68,8 +68,9 @@ namespace TravelWebAPI.Controllers
                     throw;
                 }
             }
+            await _context.PlaceModels.ToListAsync();
 
-            return NoContent();
+            return Ok(await _context.TravelDetails.Include(place => place.Places).ToListAsync());
         }
 
         // POST: api/PlaceModels
@@ -79,8 +80,9 @@ namespace TravelWebAPI.Controllers
         {
             _context.PlaceModels.Add(placeModel);
             await _context.SaveChangesAsync();
+            await _context.PlaceModels.ToListAsync();
 
-            return CreatedAtAction("GetPlaceModel", new { id = placeModel.Id }, placeModel);
+            return Ok(await _context.TravelDetails.Include(place => place.Places).ToListAsync());
         }
 
         // DELETE: api/PlaceModels/5
@@ -95,8 +97,10 @@ namespace TravelWebAPI.Controllers
 
             _context.PlaceModels.Remove(placeModel);
             await _context.SaveChangesAsync();
+            await _context.PlaceModels.ToListAsync();
+            
 
-            return NoContent();
+            return Ok(await _context.TravelDetails.Include(place => place.Places).ToListAsync());
         }
 
         private bool PlaceModelExists(int id)
